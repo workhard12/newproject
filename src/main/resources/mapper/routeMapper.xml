@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.routeMapper">
+    <resultMap id="routeMap" type="com.study.pojo.Route">
+        <id column="r_id" property="rId"/>
+        <result column="start_station" property="startStation"/>
+        <result column="startno" property="startno"/>
+        <result column="end_station" property="endStation"/>
+        <result column="endno" property="endno"/>
+    </resultMap>
+    <resultMap id="saledetail" type="com.study.pojo.Saledetail">
+        <id column="sal_time" property="salTime"/>
+        <result column="start_stations" property="startStations"/>
+        <result column="end_stations" property="endStations"/>
+        <result column="sal_price" property="salPrice"/>
+        <result column="pay_way" property="payWay"/>
+    </resultMap>
+    <insert id="InsertSaleDetail" parameterType="com.study.pojo.Saledetail">
+        insert into saleDetail(sal_time,start_stations,end_stations,sal_price,pay_way)
+        values (#{salTime},#{startStations},#{endStations},#{salPrice},
+                #{payWay})
+    </insert>
+    <select id="selectAllRoute" resultMap="routeMap">
+        select * from route
+    </select>
+
+</mapper>

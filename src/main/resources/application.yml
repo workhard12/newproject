@@ -1,0 +1,22 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zhubo?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    password: root
+    username: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  type-aliases-package: com.study.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
+logging:
+  level:
+    com:
+      study:
+          model:
+            mapper: debug

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.UserMapper">
+    <resultMap id="userMap" type="com.study.pojo.Users">
+        <id column="u_id" property="uId"/>
+        <result column="u_name" property="uName"/>
+        <result column="u_pass" property="uPass"/>
+        <result column="reg_time" property="regTime"/>
+        <result column="balance" property="balance"/>
+    </resultMap>
+    <resultMap id="chongMap" type="com.study.pojo.Chongzhi">
+        <id column="h_id" property="hId"/>
+        <result column="fill_time" property="fillTime"/>
+        <result column="send_money" property="sendMoney"/>
+    </resultMap>
+    <insert id="insertChongzhi" parameterType="com.study.pojo.Chongzhi">
+        insert into chongzhi(u_id,fill_time,send_money) values (#{uId},#{fillTime},#{sendMoney})
+    </insert>
+    <update id="updateUserMoney" parameterType="com.study.pojo.Users">
+        update users set balance=#{balance} where u_name=#{uName}
+    </update>
+    <select id="selectAllUser" resultMap="userMap">
+        select * from users
+    </select>
+    <select id="selectUserByName" resultMap="userMap">
+        select * from users where u_name=#{uName}
+    </select>
+    <resultMap id="selectChonzhiMap" type="com.study.pojo.Chongzhi">
+        <result column="fillTime" property="fillTime" />
+        <result column="sendMoney" property="sendMoney" />
+    </resultMap>
+    <select id="selectChongzhiMoney" resultMap="selectChonzhiMap">
+        select fill_time as fillTime,sum(send_money) as sendMoney from chongzhi GROUP BY month(fill_time)
+    </select>
+    <select id="selectAllChongzhi" resultMap="chongMap">
+        select fill_time,send_money,h_id from chongzhi order by fill_time desc
+    </select>
+</mapper>
